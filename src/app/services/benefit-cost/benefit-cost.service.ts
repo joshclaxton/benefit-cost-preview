@@ -9,8 +9,8 @@ export class BenefitCostService {
 
   private readonly employeeYearlyBenefitCost = 1000;
   private readonly dependendentYearlyBenefitCost = 500;
-  private readonly numPaychecks = 26;
-  private readonly employeePaycheck = 2000;
+  public readonly numPaychecks = 26;
+  public readonly employeePaycheck = 2000;
 
   constructor() { }
 
