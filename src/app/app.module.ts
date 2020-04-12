@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BenefitPreviewComponent } from './components/benefit-preview/benefit-preview.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BenefitPreviewComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
