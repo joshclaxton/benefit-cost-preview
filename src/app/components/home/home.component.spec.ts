@@ -31,7 +31,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('#instructions').textContent)
-      .toBe('Enter the first names of each employee and their dependents');
+      .toBe('Enter the first names of each employee and their dependents.');
   });
 
   it('should render assumptions', () => {
