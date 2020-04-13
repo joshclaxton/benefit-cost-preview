@@ -85,10 +85,13 @@ describe('BenefitPreviewComponent', () => {
       .toBe('Enter names for employee and dependents to see preview');
   });
 
-  // todo figure these out
   it('should display benefit cost calculation', () => {
     const employeeFirstNameControl = component.benefitCostForm.get('employeeFirstName') as FormControl;
     employeeFirstNameControl.setValue('real value');
+    component.paycheckSummary = {
+      benefitsCost: 0,
+      takeHomePay: 0
+    };
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.benefit-cost').textContent).toContain('Benefits: ');
@@ -97,6 +100,10 @@ describe('BenefitPreviewComponent', () => {
   it('should display take home calculation', () => {
     const employeeFirstNameControl = component.benefitCostForm.get('employeeFirstName') as FormControl;
     employeeFirstNameControl.setValue('real value');
+    component.paycheckSummary = {
+      benefitsCost: 0,
+      takeHomePay: 0
+    };
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.take-home-pay').textContent).toContain('Take Home: ');
