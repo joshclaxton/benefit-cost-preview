@@ -1,1 +1,26 @@
-<p>benefit-preview works!</p>
+<div>
+    <form [formGroup]="benefitCostForm">
+        <label>
+            <h3>Employee First Name</h3>
+            <input type="text" formControlName="employeeFirstName">
+        </label>
+        <div formArrayName="dependentFirstNames">
+            <h3>Dependents</h3>
+            <div *ngFor="let dependentFirstName of benefitCostForm.controls.dependentFirstNames?.controls; let i=index">
+                <!-- The repeated alias template -->
+                <label>
+                    First Name
+                    <input type="text" [formControlName]="i">
+                    <button (click)="removeDependent(i)">-</button>
+                </label>
+            </div>
+            <button (click)="addDependent()">Add Dependent</button>
+        </div>
+    </form>
+    <div>
+        <h3>Per Paycheck</h3>
+        <div class="benefit-cost" *ngIf="benefitCostForm.valid && paycheckSummary">Benefits: {{paycheckSummary.benefitsCost}}</div>
+        <div class="take-home-pay" *ngIf="benefitCostForm.valid && paycheckSummary">Take Home: {{paycheckSummary.takeHomePay}}</div>
+        <div class="invalid-form-message" *ngIf="!benefitCostForm.valid">Enter names for employee and dependents to see preview</div>
+    </div>
+</div>
