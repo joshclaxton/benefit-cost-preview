@@ -1,26 +1,48 @@
-<div>
-    <form [formGroup]="benefitCostForm">
-        <label>
-            <h3>Employee First Name</h3>
-            <input type="text" formControlName="employeeFirstName">
-        </label>
-        <div formArrayName="dependentFirstNames">
-            <h3>Dependents</h3>
-            <div *ngFor="let dependentFirstName of benefitCostForm.controls.dependentFirstNames?.controls; let i=index">
-                <!-- The repeated alias template -->
-                <label>
-                    First Name
-                    <input type="text" [formControlName]="i">
-                    <button (click)="removeDependent(i)">-</button>
-                </label>
-            </div>
-            <button (click)="addDependent()">Add Dependent</button>
+<div class="container border border-dark rounded-lg p-3">
+    <div class="row">
+        <div class="col-9">
+            <form [formGroup]="benefitCostForm">
+                <div class="row">
+                    <div class="col-5">
+                        <h3>Employee</h3>
+                        <label>
+                            <div>First Name</div>
+                            <input type="text" formControlName="employeeFirstName" class="form-control"
+                                [ngClass]="{'border-danger': !benefitCostForm.controls.employeeFirstName.pristine && !benefitCostForm.controls.employeeFirstName.valid}">
+                        </label>
+                    </div>
+                    <div class="col" formArrayName="dependentFirstNames">
+                        <h3>Dependents</h3>
+                        <div
+                            *ngFor="let dependentFirstName of benefitCostForm.controls.dependentFirstNames?.controls; let i=index">
+                            <label>
+                                <div>First Name</div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" [formControlName]="i"
+                                        [ngClass]="{'border-danger': !dependentFirstName.pristine && !dependentFirstName.valid, 'form-control': true}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-danger" (click)="removeDependent(i)">-</button>
+                                    </div>
+                                </div>
+                            </label>
+
+                        </div>
+                        <button class="btn btn-primary" (click)="addDependent()">Add</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-    <div>
-        <h3>Per Paycheck</h3>
-        <div class="benefit-cost" *ngIf="benefitCostForm.valid && paycheckSummary">Benefits: {{paycheckSummary.benefitsCost}}</div>
-        <div class="take-home-pay" *ngIf="benefitCostForm.valid && paycheckSummary">Take Home: {{paycheckSummary.takeHomePay}}</div>
-        <div class="invalid-form-message" *ngIf="!benefitCostForm.valid">Enter names for employee and dependents to see preview</div>
+        <div class="col-3">
+            <h3>Per Paycheck</h3>
+            <div class="benefit-cost" *ngIf="benefitCostForm.valid && paycheckSummary">Benefits:
+                <strong>{{paycheckSummary.benefitsCost | currency}}</strong>
+            </div>
+            <div class="take-home-pay" *ngIf="benefitCostForm.valid && paycheckSummary">Take Home:
+                <strong>{{paycheckSummary.takeHomePay | currency}}</strong>
+            </div>
+            <div class="invalid-form-message" *ngIf="!benefitCostForm.valid">Enter names for employee and dependents to
+                see
+                preview</div>
+        </div>
     </div>
 </div>

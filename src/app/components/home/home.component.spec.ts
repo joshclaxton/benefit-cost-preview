@@ -38,7 +38,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('#assumptions').textContent)
-      .toBe('This assumes all employees are paid $2000 per paycheck before deductions and there are 26 paychecks per year. ' +
+      .toBe('This assumes all employees are paid $2,000.00 per paycheck before deductions and there are 26 paychecks per year. ' +
         'Note: this is a preview. ' +
         'Individual paychecks throughout the year may differ by a few pennies to account for uneven division per pay period.');
   });
