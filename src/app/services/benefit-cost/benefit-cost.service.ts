@@ -9,12 +9,12 @@ export class BenefitCostService {
 
   private readonly employeeYearlyBenefitCost = 1000;
   private readonly dependendentYearlyBenefitCost = 500;
-  public readonly numPaychecks = 26;
-  public readonly employeePaycheck = 2000;
+  readonly numPaychecks = 26;
+  readonly employeePaycheck = 2000;
 
   constructor() { }
 
-  public calculatePaycheckPreview(employeeName: string, dependentFirstNames: string[] = []): PaycheckSummary {
+  calculatePaycheckPreview(employeeName: string, dependentFirstNames: string[] = []): PaycheckSummary {
     if (!employeeName || (dependentFirstNames && dependentFirstNames.some(d => !d))) {
       throw Error('All names must have a value');
     }

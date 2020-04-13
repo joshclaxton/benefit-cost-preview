@@ -8,8 +8,8 @@ import { BenefitCostService } from 'src/app/services/benefit-cost/benefit-cost.s
 })
 export class HomeComponent implements OnInit {
 
-  public numPaychecks: number;
-  public employeePaycheck: number;
+  numPaychecks: number;
+  employeePaycheck: number;
   constructor(private benefitCostService: BenefitCostService) { }
 
   ngOnInit() {
