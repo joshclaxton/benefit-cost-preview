@@ -34,12 +34,12 @@ export class BenefitCostService {
     };
   }
 
-  private calculateEmployeeYearlyCost(name: string) {
+  private calculateEmployeeYearlyCost(name: string): number {
     const discountFactor = this.getDiscountFactor(name);
     return this.calculateCost(this.employeeYearlyBenefitCost, discountFactor);
   }
 
-  private calculateDependentYearlyCost(name: string) {
+  private calculateDependentYearlyCost(name: string): number {
     const discountFactor = this.getDiscountFactor(name);
     return this.calculateCost(this.dependendentYearlyBenefitCost, discountFactor);
   }

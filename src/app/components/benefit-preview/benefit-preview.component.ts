@@ -12,8 +12,8 @@ import { takeUntil, debounce, debounceTime } from 'rxjs/operators';
 })
 export class BenefitPreviewComponent implements OnInit, OnDestroy {
 
-  paycheckSummary: PaycheckSummary;
   destroyed$ = new Subject();
+  paycheckSummary: PaycheckSummary;
   benefitCostForm = this.formBuilder.group({
     employeeFirstName: ['', Validators.required],
     dependentFirstNames: this.formBuilder.array([])
@@ -34,20 +34,20 @@ export class BenefitPreviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  private get dependentFirstNames() {
-    return this.benefitCostForm.get('dependentFirstNames') as FormArray;
-  }
-
-  addDependent() {
+  addDependent(): void {
     this.dependentFirstNames.push(this.formBuilder.control('', Validators.required));
   }
 
-  removeDependent(index: number) {
+  removeDependent(index: number): void {
     this.dependentFirstNames.removeAt(index);
   }
 
   ngOnDestroy() {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  private get dependentFirstNames(): FormArray {
+    return this.benefitCostForm.get('dependentFirstNames') as FormArray;
   }
 }
