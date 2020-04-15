@@ -14,7 +14,7 @@ describe('BenefitPreviewComponent', () => {
       return {
         benefitsCost: 0,
         takeHomePay: 0
-      }
+      };
     }
   }
 
