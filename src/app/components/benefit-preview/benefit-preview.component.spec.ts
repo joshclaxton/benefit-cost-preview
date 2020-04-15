@@ -2,17 +2,31 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BenefitPreviewComponent } from './benefit-preview.component';
 import { ReactiveFormsModule, FormArray, FormControl } from '@angular/forms';
+import { BenefitCostService } from 'src/app/services/benefit-cost/benefit-cost.service';
+import { PaycheckSummary } from 'src/app/models/paycheck-summary';
 
 describe('BenefitPreviewComponent', () => {
   let component: BenefitPreviewComponent;
   let fixture: ComponentFixture<BenefitPreviewComponent>;
 
+  class MockBenefitCostService {
+    calculatePaycheckPreview(employeeName: string, dependentFirstNames: string[] = []): PaycheckSummary {
+      return {
+        benefitsCost: 0,
+        takeHomePay: 0
+      }
+    }
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [BenefitPreviewComponent]
+      declarations: [BenefitPreviewComponent],
+      providers: [
+        { provide: BenefitCostService, useClass: MockBenefitCostService }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -89,12 +103,12 @@ describe('BenefitPreviewComponent', () => {
     const employeeFirstNameControl = component.benefitCostForm.get('employeeFirstName') as FormControl;
     employeeFirstNameControl.setValue('real value');
     component.paycheckSummary = {
-      benefitsCost: 0,
+      benefitsCost: 7.778,
       takeHomePay: 0
     };
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.benefit-cost').textContent).toContain('Benefits: ');
+    expect(compiled.querySelector('.benefit-cost').textContent).toContain('Benefits: $7.78');
   });
 
   it('should display take home calculation', () => {
@@ -102,10 +116,10 @@ describe('BenefitPreviewComponent', () => {
     employeeFirstNameControl.setValue('real value');
     component.paycheckSummary = {
       benefitsCost: 0,
-      takeHomePay: 0
+      takeHomePay: 7.778
     };
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.take-home-pay').textContent).toContain('Take Home: ');
+    expect(compiled.querySelector('.take-home-pay').textContent).toContain('Take Home: $7.78');
   });
 });

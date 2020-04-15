@@ -1,18 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { BenefitPreviewComponent } from '../benefit-preview/benefit-preview.component';
 import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
+  @Component({
+    selector: 'app-benefit-preview',
+    template: '<div>mock benefit-preview</div>>'
+  })
+  class MockBenefitPreviewComponent {}
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [HomeComponent, BenefitPreviewComponent]
+      declarations: [HomeComponent, MockBenefitPreviewComponent]
     })
       .compileComponents();
   }));
@@ -45,6 +51,6 @@ describe('HomeComponent', () => {
 
   it('should render benefit-cost-preview component', () => {
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.directive(BenefitPreviewComponent))).toBeTruthy();
+    expect(fixture.debugElement.query(By.directive(MockBenefitPreviewComponent))).toBeTruthy();
   });
 });
