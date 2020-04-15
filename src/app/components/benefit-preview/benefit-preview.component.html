@@ -1,9 +1,9 @@
 <div class="container border border-dark rounded-lg p-3">
     <div class="row">
-        <div class="col-9">
+        <div class="col-9 mb-2">
             <form [formGroup]="benefitCostForm">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-md-5 col-sm-12">
                         <h3>Employee</h3>
                         <label>
                             <div>First Name</div>
@@ -32,7 +32,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
             <h3>Per Paycheck</h3>
             <div class="benefit-cost" *ngIf="benefitCostForm.valid && paycheckSummary">Benefits:
                 <strong>{{paycheckSummary.benefitsCost | currency}}</strong>
