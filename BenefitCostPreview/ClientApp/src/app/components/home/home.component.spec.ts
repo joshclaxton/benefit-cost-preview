@@ -14,7 +14,7 @@ describe('HomeComponent', () => {
 
   @Component({
     selector: 'app-benefit-preview',
-    template: '<div>mock benefit-preview</div>>'
+    template: '<div>mock benefit-preview</div>'
   })
   class MockBenefitPreviewComponent {}
 
