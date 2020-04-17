@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenefitCostPreview", "BenefitCostPreview\BenefitCostPreview.csproj", "{3FD369A1-B14F-4DA9-B28D-93A3BDDF0456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenefitCostPreview", "BenefitCostPreview\BenefitCostPreview.csproj", "{3FD369A1-B14F-4DA9-B28D-93A3BDDF0456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenefitCostPreview.Tests", "BenefitCostPreview.Tests\BenefitCostPreview.Tests.csproj", "{AD6E1EB1-704E-4D13-A1BD-E94732613D02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3FD369A1-B14F-4DA9-B28D-93A3BDDF0456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FD369A1-B14F-4DA9-B28D-93A3BDDF0456}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FD369A1-B14F-4DA9-B28D-93A3BDDF0456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6E1EB1-704E-4D13-A1BD-E94732613D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6E1EB1-704E-4D13-A1BD-E94732613D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6E1EB1-704E-4D13-A1BD-E94732613D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6E1EB1-704E-4D13-A1BD-E94732613D02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
+using System.Text.Json;
+using BenefitCostPreview.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,12 +22,17 @@ namespace BenefitCostPreview
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                // default to camelCase for JSON serialization in API endpoints
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSingleton<IBenefitCostService, IBenefitCostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
