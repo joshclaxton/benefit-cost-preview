@@ -23,7 +23,7 @@ namespace BenefitCostPreview.Tests
         [InlineData(NonDiscountName, new[] { NonDiscountName, "" })]
         public void Should_ThrowException_When_InvalidInput(string employeeName, IEnumerable<string> dependentNames = null)
         {
-            var ex = Assert.Throws<Exception>(() => _benefitCostService.CalculateBenefitCostPreview(employeeName, dependentNames));
+            var ex = Assert.Throws<ArgumentException>(() => _benefitCostService.CalculateBenefitCostPreview(employeeName, dependentNames));
             Assert.Equal("All names must have a value", ex.Message);
         }
 

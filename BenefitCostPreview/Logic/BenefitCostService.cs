@@ -8,17 +8,22 @@ namespace BenefitCostPreview.Logic
 {
     public class BenefitCostService : IBenefitCostService
     {
-        private const decimal EmployeeYearlyBenefitCost = 1000;
-        private const decimal DependentYearlyBenefitCost = 500;
-        private const decimal NumPaychecks = 26;
-        private const decimal EmployeePaycheck = 2000;
+        private readonly decimal EmployeeYearlyBenefitCost = 1000;
+        private readonly decimal DependentYearlyBenefitCost = 500;
+        private readonly int NumPaychecks = 26;
+        private readonly decimal EmployeePaycheck = 2000;
 
+        public BenefitCostAssumptions BenefitsCostAssumptions => new BenefitCostAssumptions
+        {
+            NumPaychecks = NumPaychecks,
+            EmployeePaycheck = EmployeePaycheck
+        };
         public PaycheckSummary CalculateBenefitCostPreview(string employeeFirstName, IEnumerable<string> dependentFirstNames = null)
         {
             dependentFirstNames = dependentFirstNames?.ToList();
 
             if (string.IsNullOrEmpty(employeeFirstName) ||  dependentFirstNames != null && dependentFirstNames.Any(string.IsNullOrEmpty))
-                throw new Exception("All names must have a value");
+                throw new ArgumentException("All names must have a value");
 
             var yearlyBenefitCost = CalculateEmployeeYearlyCost(employeeFirstName);
             if (dependentFirstNames?.Any() ?? false)

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PaycheckSummary } from 'src/app/models/paycheck-summary';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CalculateBenefitCostPreviewInputModel } from 'src/app/models/calculate-benefit-cost-preview-input-model';
+import { BenefitCostAssumptions } from 'src/app/models/benefit-cost-assumptions';
 
 
 @Injectable({
@@ -7,55 +11,25 @@ import { PaycheckSummary } from 'src/app/models/paycheck-summary';
 })
 export class BenefitCostService {
 
-  private readonly employeeYearlyBenefitCost = 1000;
-  private readonly dependentYearlyBenefitCost = 500;
-  readonly numPaychecks = 26;
-  readonly employeePaycheck = 2000;
+  private readonly httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  calculatePaycheckPreview(employeeFirstName: string, dependentFirstNames: string[] = []): PaycheckSummary {
-    if (!employeeFirstName || (dependentFirstNames && dependentFirstNames.some(d => !d))) {
-      throw Error('All names must have a value');
-    }
-
-    let yearlyBenefitCost = this.calculateEmployeeYearlyCost(employeeFirstName);
-    if (dependentFirstNames) {
-      yearlyBenefitCost += dependentFirstNames
-        .map(d => this.calculateDependentYearlyCost(d))
-        .reduce((a, b) => a + b, 0);
-    }
-
-    const benefitsCost = yearlyBenefitCost / this.numPaychecks;
-
-    return {
-      benefitsCost,
-      takeHomePay: this.employeePaycheck - benefitsCost
-    };
+  getBenefitsCostAssumptions(): Observable<BenefitCostAssumptions> {
+    return this.httpClient.get<BenefitCostAssumptions>('/api/BenefitCost/GetBenefitsCostAssumptions');
   }
 
-  private calculateEmployeeYearlyCost(name: string): number {
-    const discountFactor = this.getDiscountFactor(name);
-    return this.calculateCost(this.employeeYearlyBenefitCost, discountFactor);
-  }
+  calculatePaycheckPreviewAsync(employeeFirstName: string, dependentFirstNames: string[] = []): Observable<PaycheckSummary> {
+    const data = {
+      employeeFirstName,
+      dependentFirstNames
 
-  private calculateDependentYearlyCost(name: string): number {
-    const discountFactor = this.getDiscountFactor(name);
-    return this.calculateCost(this.dependentYearlyBenefitCost, discountFactor);
-  }
-
-  private calculateCost(baseCost: number, discountFactor: number): number {
-    return baseCost * discountFactor;
-  }
-
-  private getDiscountFactor(name: string): number {
-    switch (name[0]) {
-      case 'A':
-      case 'a':
-        return 0.9;
-      default:
-        return 1;
-    }
+    } as CalculateBenefitCostPreviewInputModel;
+    return this.httpClient.post<PaycheckSummary>('/api/BenefitCost/CalculateBenefitCostPreview', data, this.httpOptions);
   }
 }
 

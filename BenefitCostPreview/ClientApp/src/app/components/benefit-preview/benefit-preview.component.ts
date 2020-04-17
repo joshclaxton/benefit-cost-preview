@@ -27,7 +27,10 @@ export class BenefitPreviewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$), debounceTime(300))
       .subscribe(form => {
         if (this.benefitCostForm.valid) {
-          this.paycheckSummary = this.benefitCostService.calculatePaycheckPreview(form.employeeFirstName, form.dependentFirstNames);
+          this.benefitCostService.calculatePaycheckPreviewAsync(form.employeeFirstName, form.dependentFirstNames)
+            .subscribe(data => {
+              this.paycheckSummary = data;
+            });
         } else {
           this.paycheckSummary = null;
         }
