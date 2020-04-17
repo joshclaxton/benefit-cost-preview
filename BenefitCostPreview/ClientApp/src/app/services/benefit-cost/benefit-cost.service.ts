@@ -8,18 +8,18 @@ import { PaycheckSummary } from 'src/app/models/paycheck-summary';
 export class BenefitCostService {
 
   private readonly employeeYearlyBenefitCost = 1000;
-  private readonly dependendentYearlyBenefitCost = 500;
+  private readonly dependentYearlyBenefitCost = 500;
   readonly numPaychecks = 26;
   readonly employeePaycheck = 2000;
 
   constructor() { }
 
-  calculatePaycheckPreview(employeeName: string, dependentFirstNames: string[] = []): PaycheckSummary {
-    if (!employeeName || (dependentFirstNames && dependentFirstNames.some(d => !d))) {
+  calculatePaycheckPreview(employeeFirstName: string, dependentFirstNames: string[] = []): PaycheckSummary {
+    if (!employeeFirstName || (dependentFirstNames && dependentFirstNames.some(d => !d))) {
       throw Error('All names must have a value');
     }
 
-    let yearlyBenefitCost = this.calculateEmployeeYearlyCost(employeeName);
+    let yearlyBenefitCost = this.calculateEmployeeYearlyCost(employeeFirstName);
     if (dependentFirstNames) {
       yearlyBenefitCost += dependentFirstNames
         .map(d => this.calculateDependentYearlyCost(d))
@@ -41,10 +41,10 @@ export class BenefitCostService {
 
   private calculateDependentYearlyCost(name: string): number {
     const discountFactor = this.getDiscountFactor(name);
-    return this.calculateCost(this.dependendentYearlyBenefitCost, discountFactor);
+    return this.calculateCost(this.dependentYearlyBenefitCost, discountFactor);
   }
 
-  private calculateCost(baseCost: number, discountFactor: number) {
+  private calculateCost(baseCost: number, discountFactor: number): number {
     return baseCost * discountFactor;
   }
 
