@@ -4,17 +4,18 @@ import { BenefitPreviewComponent } from './benefit-preview.component';
 import { ReactiveFormsModule, FormArray, FormControl } from '@angular/forms';
 import { BenefitCostService } from 'src/app/services/benefit-cost/benefit-cost.service';
 import { PaycheckSummary } from 'src/app/models/paycheck-summary';
+import { Observable, of } from 'rxjs';
 
 describe('BenefitPreviewComponent', () => {
   let component: BenefitPreviewComponent;
   let fixture: ComponentFixture<BenefitPreviewComponent>;
 
   class MockBenefitCostService {
-    calculatePaycheckPreview(employeeName: string, dependentFirstNames: string[] = []): PaycheckSummary {
-      return {
+    calculatePaycheckPreviewAsync(employeeName: string, dependentFirstNames: string[] = []): Observable<PaycheckSummary> {
+      return of({
         benefitsCost: 0,
         takeHomePay: 0
-      };
+      } as PaycheckSummary);
     }
   }
 

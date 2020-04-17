@@ -4,6 +4,9 @@ import { HomeComponent } from './home.component';
 import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
+import { BenefitCostAssumptions } from 'src/app/models/benefit-cost-assumptions';
+import { Observable, of } from 'rxjs';
+import { BenefitCostService } from 'src/app/services/benefit-cost/benefit-cost.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,14 +14,26 @@ describe('HomeComponent', () => {
 
   @Component({
     selector: 'app-benefit-preview',
-    template: '<div>mock benefit-preview</div>>'
+    template: '<div>mock benefit-preview</div>'
   })
   class MockBenefitPreviewComponent {}
+
+  class MockBenefitCostService {
+    getBenefitsCostAssumptions(): Observable<BenefitCostAssumptions> {
+      return of({
+        employeePaycheck: 2000,
+        numPaychecks: 26
+      } as BenefitCostAssumptions);
+    }
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [HomeComponent, MockBenefitPreviewComponent]
+      declarations: [HomeComponent, MockBenefitPreviewComponent],
+      providers: [
+        { provide: BenefitCostService, useClass: MockBenefitCostService }
+      ]
     })
       .compileComponents();
   }));

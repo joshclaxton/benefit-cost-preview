@@ -13,8 +13,9 @@ export class HomeComponent implements OnInit {
   constructor(private benefitCostService: BenefitCostService) { }
 
   ngOnInit() {
-    this.employeePaycheck = this.benefitCostService.employeePaycheck;
-    this.numPaychecks = this.benefitCostService.numPaychecks;
+    this.benefitCostService.getBenefitsCostAssumptions().subscribe(data => {
+      this.employeePaycheck = data.employeePaycheck,
+        this.numPaychecks = data.numPaychecks;
+    });
   }
-
 }
