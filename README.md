@@ -1,6 +1,7 @@
 ## Dependencies
 
 .Net Core 3.1
+
 Angular 8.2.0
 
 ## How to Run
