@@ -23,7 +23,6 @@ bin/
 Bin/
 obj/
 Obj/
-dist/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -35,7 +34,6 @@ dist/
 # NUNIT
 *.VisualState.xml
 TestResult.xml
-/TESTS-*
 
 # Build Results of an ATL Project
 [Dd]ebugPS/
@@ -231,8 +229,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-
-# Rider
-.idea
-*.idea
-
